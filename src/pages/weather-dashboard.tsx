@@ -101,7 +101,7 @@ const WeatherDashBoard = () => {
         </div>
        
         <div className="grid gap-6">
-          <div className="flex flex-col lg:flex-row gap-4">
+          <div className="flex flex-col lg:flex-row gap-6">
                 <CurrentWeather data={weatherQuery.data} 
                                 locationName={locationName}
                 />                

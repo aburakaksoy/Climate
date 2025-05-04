@@ -8,6 +8,17 @@ import WeatherForecast from "@/components/ui/weather-forecast";
 import { useForecastQuery, useWeatherQuery } from "@/hooks/use-weather";
 import { AlertTriangle } from "lucide-react";
 import { useParams, useSearchParams } from "react-router-dom";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet"; 
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
+
+const customIcon = new L.Icon({
+  iconUrl: "/marker-icon.png", 
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
+});
 
 const CityPage = () => {
   const [searchParams]= useSearchParams();
@@ -50,26 +61,41 @@ const CityPage = () => {
 
         </div>
        
-        <div className="grid gap-6">
-          <div className="flex flex-col gap-4">
+        <div className="grid gap-4">
+          <div className="flex flex-row gap-2">
                 <CurrentWeather data={weatherQuery.data} 
                 />                
                 <HourlyTemperature data={forecastQuery.data}
-
                 />
             {/* hourly temperature */}
           </div>  
 
-          <div className="grid gap-6 md:grid-cols-2 items-start">
+          <div className="grid gap-4 md:grid-cols-2 items-start">
             <WeatherDetails data={weatherQuery.data}/>
         
             {/*forecast*/}
             <WeatherForecast data={forecastQuery.data}/>
 
-          </div>
-
-
+          </div>  
+        
         </div>
+
+        <div className="mt-8 h-96">
+        <MapContainer
+          center={[lat, lon]} // Şehir koordinatları
+          zoom={12}
+          scrollWheelZoom={false}
+          className="w-full h-full"
+        >
+          <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          />
+         <Marker position={[lat, lon]} icon={customIcon}>
+          <Popup>{params.cityName}</Popup>
+         </Marker>
+        </MapContainer>
+      </div>
      </div>     
     )
 

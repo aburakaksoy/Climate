@@ -18,7 +18,7 @@ const HourlyTemperature = ({ data }: HourlyTemperature) => {
     
     return (
 
-        <Card className="flex-1">
+        <Card className="flex-1 pt-25">
             <CardHeader>
                 <CardTitle> Today's Temperature  </CardTitle>
             </CardHeader>
