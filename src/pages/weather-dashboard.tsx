@@ -2,6 +2,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button"
 import CurrentWeather from "@/components/ui/current-weather";
 import FavoriteCities from "@/components/ui/favorite-cities";
+import HourlyRaining from "@/components/ui/hourly-raining";
 import HourlyTemperature from "@/components/ui/hourly-temperature";
 import WeatherSkeleton from "@/components/ui/loading-skeleton";
 import WeatherDetails from "@/components/ui/weather-details";
@@ -106,7 +107,8 @@ const WeatherDashBoard = () => {
                                 locationName={locationName}
                 />                
                 <HourlyTemperature data={forecastQuery.data}
-
+                />
+                <HourlyRaining data= {forecastQuery.data}
                 />
             {/* hourly temperature */}
           </div>  

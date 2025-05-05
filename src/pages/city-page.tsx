@@ -11,6 +11,7 @@ import { useParams, useSearchParams } from "react-router-dom";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet"; 
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import HourlyRaining from "@/components/ui/hourly-raining";
 
 const customIcon = new L.Icon({
   iconUrl: "/marker-icon.png", 
@@ -67,6 +68,7 @@ const CityPage = () => {
                 />                
                 <HourlyTemperature data={forecastQuery.data}
                 />
+                <HourlyRaining data={forecastQuery.data}/>
             {/* hourly temperature */}
           </div>  
 

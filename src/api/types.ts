@@ -44,11 +44,16 @@ export interface ForecastData {
     weather: WeatherData["weather"];
     wind: WeatherData["wind"];
     dt_txt: string;
+    rain?: {
+        "3h"?: number;
+    };
+    pop:number; 
+    
     }>;
 
     city: {
         name: string;
-        coutnry: string;
+        country: string;
         sunrise: number;
         sunset: number;
     }
