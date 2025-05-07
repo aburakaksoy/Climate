@@ -1,22 +1,21 @@
-import { useEffect, useState } from "react"
-
+import { useEffect, useState } from "react";
 
 type SearchItem = {
-  name: string
-  lat: number
-  lon: number
-  searchedAt: number
-}
+  name: string;
+  lat: number;
+  lon: number;
+  searchedAt: number;
+};
 
 export default function HistoryPage() {
-  const [history, setHistory] = useState<SearchItem[]>([])
+  const [history, setHistory] = useState<SearchItem[]>([]);
 
   useEffect(() => {
-    const stored = localStorage.getItem("search-history")
+    const stored = localStorage.getItem("search-history");
     if (stored) {
-      setHistory(JSON.parse(stored))
+      setHistory(JSON.parse(stored));
     }
-  }, [])
+  }, []);
 
   return (
     <div className="p-6">
@@ -36,11 +35,16 @@ export default function HistoryPage() {
             </thead>
             <tbody>
               {history.map((item, i) => (
-                <tr key={i} className="text-center border-t dark:border-gray-700">
+                <tr
+                  key={i}
+                  className="text-center border-t dark:border-gray-700"
+                >
                   <td className="p-2 border">{item.name}</td>
                   <td className="p-2 border">{item.lat}</td>
                   <td className="p-2 border">{item.lon}</td>
-                  <td className="p-2 border">{new Date(item.searchedAt).toLocaleString()}</td>
+                  <td className="p-2 border">
+                    {new Date(item.searchedAt).toLocaleString()}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -48,5 +52,5 @@ export default function HistoryPage() {
         </div>
       )}
     </div>
-  )
+  );
 }
