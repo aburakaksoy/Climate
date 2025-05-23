@@ -9,17 +9,22 @@ import {
   YAxis,
 } from "recharts";
 import { format } from "date-fns";
+import { useMemo } from "react";
 
 interface HourlyTemperature {
   data: ForecastData;
 }
 
 const HourlyTemperature = ({ data }: HourlyTemperature) => {
-  const chartData = data.list.slice(0, 8).map((item) => ({
-    time: format(new Date(item.dt * 1000), "ha"),
-    temp: Math.round(item.main.temp),
-    feels_like: Math.round(item.main.feels_like),
-  }));
+  const chartData = useMemo(
+    () =>
+      data.list.slice(0, 8).map((item) => ({
+        time: format(new Date(item.dt * 1000), "ha"),
+        temp: Math.round(item.main.temp),
+        feels_like: Math.round(item.main.feels_like),
+      })),
+    [data]
+  );
 
   return (
     <Card className="flex-1 pt-25">

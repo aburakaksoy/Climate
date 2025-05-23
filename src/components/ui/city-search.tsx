@@ -108,7 +108,7 @@ const CitySearch = () => {
                 {history.map((location) => {
                   return (
                     <CommandItem
-                      key={`${location.lat}-${location.lon}`}
+                      key={`${location.id}`}
                       value={`${location.lat}|${location.lon}|${location.name}|${location.country}`}
                       onSelect={handleSelect}
                     >

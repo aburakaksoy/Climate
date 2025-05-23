@@ -9,16 +9,21 @@ import {
   YAxis,
 } from "recharts";
 import { format } from "date-fns";
+import { useMemo } from "react";
 
 interface HourlyRainingProps {
   data: ForecastData;
 }
 
 const HourlyRaining = ({ data }: HourlyRainingProps) => {
-  const chartData = data.list.slice(0, 8).map((item) => ({
-    time: format(new Date(item.dt * 1000), "ha"),
-    rain: item.rain?.["3h"] || 0,
-  }));
+  const chartData = useMemo(
+    () =>
+      data.list.slice(0, 8).map((item) => ({
+        time: format(new Date(item.dt * 1000), "ha"),
+        rain: item.rain?.["3h"] || 0,
+      })),
+    [data]
+  );
 
   return (
     <Card className="flex-1 pt-24">

@@ -1,21 +1,7 @@
-import { useEffect, useState } from "react";
-
-type SearchItem = {
-  name: string;
-  lat: number;
-  lon: number;
-  searchedAt: number;
-};
+import { useSearchHistory } from "@/hooks/use-search-history";
 
 export default function HistoryPage() {
-  const [history, setHistory] = useState<SearchItem[]>([]);
-
-  useEffect(() => {
-    const stored = localStorage.getItem("search-history");
-    if (stored) {
-      setHistory(JSON.parse(stored));
-    }
-  }, []);
+  const { history } = useSearchHistory();
 
   return (
     <div className="p-6">

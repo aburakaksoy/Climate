@@ -2,53 +2,55 @@ import type { WeatherData } from "@/api/types";
 import { format } from "date-fns";
 import { Compass, Gauge, Sunrise, Sunset } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "./card";
+import { useMemo } from "react";
 
 interface WeatherDetailsProps {
   data: WeatherData;
 }
 
 const WeatherDetails = ({ data }: WeatherDetailsProps) => {
-  const { wind, main, sys } = data;
+  const details = useMemo(() => {
+    const { wind, main, sys } = data;
+    const formatTime = (timeStamp: number) => {
+      return format(new Date(timeStamp * 1000), "h:mm a");
+    };
 
-  const formatTime = (timeStamp: number) => {
-    return format(new Date(timeStamp * 1000), "h:mm a");
-  };
+    const getWindDirection = (degree: number) => {
+      const directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
 
-  const getWindDirection = (degree: number) => {
-    const directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
+      const index =
+        Math.round(((degree %= 360) < 0 ? degree + 360 : degree) / 45) % 8;
 
-    const index =
-      Math.round(((degree %= 360) < 0 ? degree + 360 : degree) / 45) % 8;
+      return directions[index];
+    };
 
-    return directions[index];
-  };
-
-  const details = [
-    {
-      title: "Sunrise",
-      value: formatTime(sys.sunrise),
-      icon: Sunrise,
-      color: "text-yellow-400",
-    },
-    {
-      title: "Sunset",
-      value: formatTime(sys.sunset),
-      icon: Sunset,
-      color: "text-orange-500",
-    },
-    {
-      title: "Wind Direction",
-      value: `${getWindDirection(wind.deg)}(${wind.deg}°)`,
-      icon: Compass,
-      color: "text-green-500",
-    },
-    {
-      title: "Pressure",
-      value: `${main.pressure} hPa`,
-      icon: Gauge,
-      color: "text-purple-500",
-    },
-  ];
+    return [
+      {
+        title: "Sunrise",
+        value: formatTime(sys.sunrise),
+        icon: Sunrise,
+        color: "text-yellow-400",
+      },
+      {
+        title: "Sunset",
+        value: formatTime(sys.sunset),
+        icon: Sunset,
+        color: "text-orange-500",
+      },
+      {
+        title: "Wind Direction",
+        value: `${getWindDirection(wind.deg)}(${wind.deg}°)`,
+        icon: Compass,
+        color: "text-green-500",
+      },
+      {
+        title: "Pressure",
+        value: `${main.pressure} hPa`,
+        icon: Gauge,
+        color: "text-purple-500",
+      },
+    ];
+  }, [data]);
 
   return (
     <Card>
